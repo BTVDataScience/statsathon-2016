@@ -4,9 +4,9 @@
 
 A [Kaggle-esque](https://en.wikipedia.org/wiki/Kaggle) competition for members of the BTV Data Science meetup group. An opportunity to develop your analytical skills, and earn some bragging rights. 
 
-The data was provided by [...]() and consists of 250,000 records, each representing a traumatically injured patient who survived long enough to reach a hospital. Each observation has 1,000 binary predictors prefixed *ais* representing individual possible injuries (0=injury not present, 1=injury present) and a single binary outcome *died*, that is, patients who went on to die before discharge from the hospital (0=survived, 1=died).  
+The data consists of 250,000 records, each representing a traumatically injured patient who survived long enough to reach a hospital. Each observation has 1,000 binary predictors prefixed *ais* representing individual possible injuries (0=injury not present, 1=injury present) and a single binary outcome *died*, that is, patients who went on to die before discharge from the hospital (0=survived, 1=died).  
 
-The training data is available at [link]() and the test set of predictors is available at [link]().
+The training and test data are available as a tar.gz archive at [TBD](). Once you extract the archive, you'll have a directory containing the training (AIS_train70.csv) and test (AIS_test30.csv) data. 
 
 Feel free to participate by yourself, or form a team.
 
