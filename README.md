@@ -12,9 +12,7 @@ Feel free to participate by yourself, or form a team.
 
 ## Where
 
-A planning and work session will occur on ... from ... at .... Teams will organize at this event.
-
-The presentation of the **winners** will occur on ... at ...
+Details of the event are available on the [Meetup page](http://www.meetup.com/Burlington-Data-Scientists/events/229214918/)
 
 ## Rules
 
