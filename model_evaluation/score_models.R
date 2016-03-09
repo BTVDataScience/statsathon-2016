@@ -29,7 +29,7 @@ for(f in files) {
   tt <- table(pred_vals, test_response)
   
   # confusion matrix
-  cm <- confusionMatrix(tt)
+  cm <- confusionMatrix(tt, positive = "1")
   
   # report accuracy, sensitivity, specificity
   acc <- cm$overall["Accuracy"]
@@ -51,6 +51,6 @@ write_csv(results_df, path = paste0("../statsathon_results_", Sys.Date(), ".csv"
 rownames(results_df) <- as.character(results_df[ , "Model"])
 results_df <- results_df[ , -1]
 
-# save as markdown table and csv
-pout <- pandoc.table.return(results_df)
-cat(pout, file = paste0("../statsathon_results_", Sys.Date(), ".md"))
+# save as markdown table
+pout <- pandoc.table.return(results_df, style = "grid")
+cat(pout, file = paste0("README.md"))
