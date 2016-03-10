@@ -1,6 +1,5 @@
 library('readr')
 library('caret')
-library('pander')
 
 # load test values
 load("test_response.Rds")
@@ -51,6 +50,15 @@ write_csv(results_df, path = paste0("../statsathon_results_", Sys.Date(), ".csv"
 rownames(results_df) <- as.character(results_df[ , "Model"])
 results_df <- results_df[ , -1]
 
-# save as markdown table
-pout <- pandoc.table.return(results_df, style = "grid")
-cat(pout, file = paste0("README.md"))
+# custom formatting for github markdown
+cat(paste0("|", "    &nbsp;    ", "|  ", colnames(results_df)[1], "  |  ", colnames(results_df)[2], "  |  ", colnames(results_df)[3], "  |  \n",
+    "| ------------ | ---------- | ------------- | ------------- | \n"), file = "README.md", append = FALSE)
+
+for(row in 1:nrow(results_df)) {
+  # append to table
+  cat(paste0("| ", "**", rownames(results_df)[row], "** |   ",
+             round(results_df[row, "Accuracy"], 4), "   |    ",
+             round(results_df[row, "Sensitivity"], 4), "     |      ",
+             round(results_df[row, "Specificity"], 4), "   | \n"),
+      file = "README.md", append = TRUE)
+}
