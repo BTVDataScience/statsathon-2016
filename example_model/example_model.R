@@ -1,3 +1,4 @@
+library('readr')
 # R script to generate example model for BTV statsathon 
 
 # load training and test data
