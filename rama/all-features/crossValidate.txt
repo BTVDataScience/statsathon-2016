@@ -1,0 +1,8 @@
+A = 128, predicted death, death resulted
+B = 983, predicted death, lived
+C = 940, predicted lived, died
+D = 29124, predicted lived, lived
+
+Sensitivity = A / (A + C) = 0.120
+Specificity = D / (B + D) = 0.967
+Accuracy = (A + D) / (A + B + C + D) = 0.938
