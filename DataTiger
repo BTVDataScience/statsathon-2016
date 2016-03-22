@@ -1,0 +1,38 @@
+
+# read in training data
+train <- read.csv("AIS_train70.csv", head = T, colClasses = c("integer"))
+
+#remove the observation number
+train <- train[,names(train) != "INC_KEY"]
+
+# remove any predictors with less than two positive responses
+pred_count <- colSums(train)
+pred_col_names <- names(pred_count[pred_count >= 2])
+train<- train[pred_col_names]
+
+# get a glm 
+model <- glm(died ~.,family=binomial(link='logit'),data=train, x=F, y=F)
+
+# use only statistically significant predictors (alpha = .1)
+h <- coef(summary(model))[,"Pr(>|z|)"]
+h <- h[h < .1]
+h <- h[names(h) != "(Intercept)"]
+train <- train[,c("died", names(h))]
+
+# get new glm with significant predictors from prev step
+rm(model)
+model <- glm(died ~.,family=binomial(link='logit'),data=train)
+rm(train)
+
+
+# read in the test set
+test <- read.csv("AIS_test30.csv",  colClasses = c("integer"))
+
+# get the predictions
+fitted_results <- predict(model, newdata=test, type = "response")
+fitted_results <- ifelse(fitted_results > 0.5,1,0)
+
+# write the predictions to a .csv file
+prediction_df = data.frame(test$INC_KEY, fitted_results)
+names(prediction_df) <- c("ais_data_test.30.INC_KEY", "pred")
+write.csv(prediction_df, "DataTiger.csv", row.names = F)
