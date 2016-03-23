@@ -1,5 +1,6 @@
 library('readr')
 library('caret')
+library('dplyr')
 
 # load test values
 load("test_response.Rds")
@@ -64,10 +65,10 @@ message("Saving results...")
 
 for(row in 1:nrow(results_df)) {
   # append to table
-  cat(paste0("| ", "**", rownames(results_df)[row], "** |   ",
+  cat(paste0("| ", "**", results_df[row, "Model"], "** |   ",
              round(results_df[row, "Accuracy"], 4), "   |    ",
              round(results_df[row, "Sensitivity"], 4), "     |      ",
-             round(results_df[row, "Sensitivity"], 4), "     |      ",
+             round(results_df[row, "Specificity"], 4), "     |      ",
              round(results_df[row, "Balanced_Accuracy"], 4), "   | \n"),
       file = "README.md", append = TRUE)
 }
