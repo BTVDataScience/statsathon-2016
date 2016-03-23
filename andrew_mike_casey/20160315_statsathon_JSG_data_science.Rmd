@@ -1,0 +1,83 @@
+---
+title: "20160315_statsathon"
+author: "Andrew Nguyen"
+date: "2016-March-15"
+output: pdf_document
+---
+#load libraries
+```{r libraries}
+library(ggplot2)#plotting
+library(rpart)
+library(tree)
+library(randomForest)
+#library(dismo)
+#library(gbm)
+#library(caret)
+library(ipred)
+library(rpart.plot)
+```
+
+#data 
+```{r load in data}
+training<-read.csv("AIS_train70.csv")
+str(training)
+dim(training)
+test<-read.csv("AIS_test30.csv")
+str(test)
+dim(test)
+
+```
+
+
+#Trying rpart
+```{r rpart}
+###try rpart
+form<-as.formula(died~.)
+testing<-rpart(form,data=training[,-1],control=rpart.control(minsplit=1),method="class")
+
+#quick and dirty plots
+plot(testing)
+text(testing)
+
+printcp(testing) # look at complexity parameter and cross validation error
+
+#predict training set
+pred<-predict(testing,training[,-1:-2],type="class")
+
+#accuracy
+sum(ifelse(training$died==pred,1,0))/length(pred)
+#confusion matrix
+table(training$died,pred)
+
+rpart.plot(testing,type=3,extra=2,main="Displays the classification rate at the node,\n expressed as number of correct classifcations \nand number of observations in the node")
+#let's predict the test set
+pred.test.set<-predict(testing,test[,-1],type="class")
+
+```
+
+#Final answer
+```{r}
+# call on pred.test.set
+dat<-as.data.frame(cbind(test[,1],pred.test.set))
+names(dat)<-c("ais_data_test30.INC_KEY","died")
+write.csv(dat,"20160321_ANBE_model_predictions.csv",row.names=FALSE)
+```
+
+#trying boosted regression trees
+```{r}
+#t<-head(training,10000)
+library(dismo)
+# 
+brt.mod3<-gbm.step(data=training,gbm.x= 3:1231,gbm.y= 2,family="bernoulli",tree.complexity=1,learning.rate=2,bag.fraction=.5,n.trees=50)
+
+brt.mod3<-gbm.step(data=training,gbm.x= 3:1231,gbm.y= 2,family="bernoulli")
+####
+#pred<-predict(brt.mod3,vars[,-1],n.trees=brt.mod3$gbm.call$best.trees,type="response")
+
+#d<-as.data.frame(cbind(vars[,1],pred))
+#d$pred_point5<-ifelse(d$pred > 0.5,1,0)
+#"good" predictability at .5 prob of finding species cut off
+#sum(ifelse(d$V1==d$pred_point5,1,0))/nrow(d)
+
+```
+
