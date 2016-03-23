@@ -68,6 +68,6 @@ for(row in 1:nrow(results_df)) {
              round(results_df[row, "Accuracy"], 4), "   |    ",
              round(results_df[row, "Sensitivity"], 4), "     |      ",
              round(results_df[row, "Sensitivity"], 4), "     |      ",
-             round(results_df[row, "Balanced_Accuracy"], 5), "   | \n"),
+             round(results_df[row, "Balanced_Accuracy"], 4), "   | \n"),
       file = "README.md", append = TRUE)
 }
