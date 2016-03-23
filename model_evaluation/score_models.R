@@ -57,7 +57,7 @@ rownames(results_df) <- as.character(results_df[ , "Model"])
 results_df <- results_df[ , -1]
 
 # custom formatting for github markdown
-cat(paste0("|", "    &nbsp;    ", "|  ", colnames(results_df)[1], "  |  ", colnames(results_df)[2], "  |  ", colnames(results_df)[3], "  |  ", colnames(results_df)[4], "  |  \n",
+cat(paste0("|", colnames(results_df)[1], "  |  ", colnames(results_df)[2], "  |  ", colnames(results_df)[3], "  |  ", colnames(results_df)[4], "  |  ", colnames(results_df)[5], "  |  \n",
            "| ------------ | ---------- | ------------- | ------------- | ------------------- | \n"), file = "README.md", append = FALSE)
 
 

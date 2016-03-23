@@ -1,4 +1,4 @@
-|    &nbsp;    |  Model  |  Accuracy  |  Sensitivity  |  Specificity  |  
+|Model  |  Accuracy  |  Sensitivity  |  Specificity  |  Balanced_Accuracy  |  
 | ------------ | ---------- | ------------- | ------------- | ------------------- | 
 | **grayBoost_pred** |   0.8697   |    0.4031     |      0.8903     |      0.6467   | 
 | **rama_pred** |   0.9251   |    0.102     |      0.9614     |      0.5317   | 
