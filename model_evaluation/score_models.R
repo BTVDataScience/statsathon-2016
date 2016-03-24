@@ -57,7 +57,11 @@ rownames(results_df) <- as.character(results_df[ , "Model"])
 results_df <- results_df[ , -1]
 
 # custom formatting for github markdown
-cat(paste0("|", colnames(results_df)[1], "  |  ", colnames(results_df)[2], "  |  ", colnames(results_df)[3], "  |  ", colnames(results_df)[4], "  |  ", colnames(results_df)[5], "  |  \n",
+cat(paste0("|    Model     |  ",
+           colnames(results_df)[1], "  |  ",
+           colnames(results_df)[2], "  |  ", 
+           colnames(results_df)[3], "  |  ", 
+           colnames(results_df)[4], "  |  \n",
            "| ------------ | ---------- | ------------- | ------------- | ------------------- | \n"), file = "README.md", append = FALSE)
 
 
@@ -65,7 +69,7 @@ message("Saving results...")
 
 for(row in 1:nrow(results_df)) {
   # append to table
-  cat(paste0("| ", "**", results_df[row, "Model"], "** |   ",
+  cat(paste0("| ", "**", rownames(results_df)[row], "** |   ",
              round(results_df[row, "Accuracy"], 4), "   |    ",
              round(results_df[row, "Sensitivity"], 4), "     |      ",
              round(results_df[row, "Specificity"], 4), "     |      ",
